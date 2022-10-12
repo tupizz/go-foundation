@@ -44,6 +44,21 @@ func main() {
 		}
 
 		// If the file doesn't exist, create it, or append to the file
+		//
+		// 0644 =>
+		// 		| owning user  | group | other (default) |
+		//      |--------------|-------|-----------------|
+		//		| read & write | read  | read            |
+		//
+		// rwx oct    meaning
+		// 001 01   = execute
+		// 010 02   = write
+		// 011 03   = write & execute
+		// 100 04   = read
+		// 101 05   = read & execute
+		// 110 06   = read & write
+		// 111 07   = read & write & execute
+
 		file, err := os.OpenFile("cidade.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "erro ao criar arquivo: %v\n", err)
