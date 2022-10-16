@@ -6,6 +6,14 @@ go mod tidy ## instala dependencias e requirements, remove pacotes que não esta
 go get golang.org/x/exp/constraints ## instala determinada biblioteca
 ````
 
+### mysql cheat sheet
+
+```bash
+docker-compose exec mysql bash
+mysql -uroot -p goexpert ## senha: root
+create table products (id varchar(255), name varchar(255), price decimal(10,2), primary key (id))
+```
+
 ## Documentations
 
 ### Templates
