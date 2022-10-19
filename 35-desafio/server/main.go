@@ -39,7 +39,7 @@ type QuotationDTO struct {
 }
 
 func getQuotation() (error, *UsdBrlResponse) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*200)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*1000)
 	defer cancel()
 	req, err := http.NewRequestWithContext(ctx, "GET", "https://economia.awesomeapi.com.br/json/last/USD-BRL", nil)
 	if err != nil {
@@ -71,16 +71,8 @@ func QuotationHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// create quotation
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
-	defer cancel()
-
 	db := r.Context().Value("DB").(*gorm.DB)
-	db.WithContext(ctx).Create(&Quotation{
-		Name:      quotationResponse.Usdbrl.Name,
-		Code:      quotationResponse.Usdbrl.Code,
-		Bid:       quotationResponse.Usdbrl.Bid,
-		Timestamp: quotationResponse.Usdbrl.Timestamp,
-	})
+	persistQuotation(db, quotationResponse)
 
 	// response part
 	w.Header().Set("Content-Type", "application/json")
@@ -89,6 +81,18 @@ func QuotationHandler(w http.ResponseWriter, r *http.Request) {
 	// return response enconded in writer
 	json.NewEncoder(w).Encode(&QuotationDTO{
 		Bid: quotationResponse.Usdbrl.Bid,
+	})
+}
+
+func persistQuotation(db *gorm.DB, quotationResponse *UsdBrlResponse) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
+	defer cancel()
+
+	db.WithContext(ctx).Create(&Quotation{
+		Name:      quotationResponse.Usdbrl.Name,
+		Code:      quotationResponse.Usdbrl.Code,
+		Bid:       quotationResponse.Usdbrl.Bid,
+		Timestamp: quotationResponse.Usdbrl.Timestamp,
 	})
 }
 
