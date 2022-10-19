@@ -62,6 +62,7 @@ func getQuotation() (error, *UsdBrlResponse) {
 }
 
 func QuotationHandler(w http.ResponseWriter, r *http.Request) {
+	// get quotation
 	err, quotationResponse := getQuotation()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -69,14 +70,19 @@ func QuotationHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// create quotation
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
+	defer cancel()
+
 	db := r.Context().Value("DB").(*gorm.DB)
-	db.Create(&Quotation{
+	db.WithContext(ctx).Create(&Quotation{
 		Name:      quotationResponse.Usdbrl.Name,
 		Code:      quotationResponse.Usdbrl.Code,
 		Bid:       quotationResponse.Usdbrl.Bid,
 		Timestamp: quotationResponse.Usdbrl.Timestamp,
 	})
 
+	// response part
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
