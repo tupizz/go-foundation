@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -55,11 +56,13 @@ func appendQuotationInFile(quotation string) error {
 func main() {
 	err, quotation := getQuotationFromLocal()
 	if err != nil {
-		panic(err)
+		log.Fatal("Erro ao buscar cotação")
+		return
 	}
 
 	err = appendQuotationInFile(quotation.Bid)
 	if err != nil {
-		panic(err)
+		log.Fatal("Erro ao inserir no arquivo")
+		return
 	}
 }

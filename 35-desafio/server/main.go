@@ -64,16 +64,16 @@ func getQuotation() (error, *UsdBrlResponse) {
 	return nil, &response
 }
 
-func persistQuotation(db *gorm.DB, quotationResponse *UsdBrlResponse) {
+func persistQuotation(db *gorm.DB, quotationResponse *UsdBrlResponse) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
 	defer cancel()
 
-	db.WithContext(ctx).Create(&Quotation{
+	return db.WithContext(ctx).Create(&Quotation{
 		Name:      quotationResponse.Usdbrl.Name,
 		Code:      quotationResponse.Usdbrl.Code,
 		Bid:       quotationResponse.Usdbrl.Bid,
 		Timestamp: quotationResponse.Usdbrl.Timestamp,
-	})
+	}).Error
 }
 
 func QuotationHandler(w http.ResponseWriter, r *http.Request) {
@@ -87,7 +87,12 @@ func QuotationHandler(w http.ResponseWriter, r *http.Request) {
 
 	// create quotation
 	db := r.Context().Value("DB").(*gorm.DB)
-	persistQuotation(db, quotationResponse)
+	err = persistQuotation(db, quotationResponse)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("internal server error"))
+		return
+	}
 
 	// response part
 	w.Header().Set("Content-Type", "application/json")
