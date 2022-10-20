@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// Response from API call
 type UsdBrlResponse struct {
 	Usdbrl struct {
 		Code       string `json:"code"`
@@ -26,6 +27,7 @@ type UsdBrlResponse struct {
 	} `json:"USDBRL"`
 }
 
+// Entity: Quotation
 type Quotation struct {
 	Name      string `json:"name"`
 	Code      string `json:"code"`
@@ -34,12 +36,13 @@ type Quotation struct {
 	gorm.Model
 }
 
+// DTO
 type QuotationDTO struct {
 	Bid string `json:"bid"`
 }
 
 func getQuotation() (error, *UsdBrlResponse) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*1000)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*200)
 	defer cancel()
 	req, err := http.NewRequestWithContext(ctx, "GET", "https://economia.awesomeapi.com.br/json/last/USD-BRL", nil)
 	if err != nil {
@@ -59,6 +62,18 @@ func getQuotation() (error, *UsdBrlResponse) {
 	}
 
 	return nil, &response
+}
+
+func persistQuotation(db *gorm.DB, quotationResponse *UsdBrlResponse) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
+	defer cancel()
+
+	db.WithContext(ctx).Create(&Quotation{
+		Name:      quotationResponse.Usdbrl.Name,
+		Code:      quotationResponse.Usdbrl.Code,
+		Bid:       quotationResponse.Usdbrl.Bid,
+		Timestamp: quotationResponse.Usdbrl.Timestamp,
+	})
 }
 
 func QuotationHandler(w http.ResponseWriter, r *http.Request) {
@@ -81,18 +96,6 @@ func QuotationHandler(w http.ResponseWriter, r *http.Request) {
 	// return response enconded in writer
 	json.NewEncoder(w).Encode(&QuotationDTO{
 		Bid: quotationResponse.Usdbrl.Bid,
-	})
-}
-
-func persistQuotation(db *gorm.DB, quotationResponse *UsdBrlResponse) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
-	defer cancel()
-
-	db.WithContext(ctx).Create(&Quotation{
-		Name:      quotationResponse.Usdbrl.Name,
-		Code:      quotationResponse.Usdbrl.Code,
-		Bid:       quotationResponse.Usdbrl.Bid,
-		Timestamp: quotationResponse.Usdbrl.Timestamp,
 	})
 }
 
@@ -119,5 +122,6 @@ func main() {
 	mux := http.NewServeMux()
 	quotationHandler := http.HandlerFunc(QuotationHandler)
 	mux.Handle("/cotacao", setHttpMiddleware(quotationHandler, db))
+	log.Println("server running on port 8080")
 	log.Println(http.ListenAndServe(":8080", mux))
 }
