@@ -1,0 +1,8 @@
+mode: set
+39-testify/tax.go:5.52,6.17 1 1
+39-testify/tax.go:10.2,10.38 1 1
+39-testify/tax.go:14.2,14.21 1 1
+39-testify/tax.go:18.2,18.15 1 1
+39-testify/tax.go:6.17,8.3 1 1
+39-testify/tax.go:10.38,12.3 1 1
+39-testify/tax.go:14.21,16.3 1 1
