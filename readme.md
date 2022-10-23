@@ -1,3 +1,17 @@
+## Project standards
+
+### How to organize your project on folders
+https://github.com/golang-standards/project-layout
+
+- `internal` - where the application code lives, almost like the `src` folder on node.js projects, private folder on our application, heart of the application
+- `configs` - where the application configuration lives, all the configuration for bootstraping the application
+- `cmd` - where the main application lives, almost like the `bin` folder on node.js projects
+- `pkg` - where the reusable code lives, almost like the `lib` folder on node.js projects, public folder on our application, libraries to be shared
+- `vendor` - where the dependencies lives, almost like the `node_modules` folder on node.js projects
+- `build` - where the build files lives, almost like the `dist` folder on node.js projects
+- `test` - where the test files lives, almost like the `test` folder on node.js projects
+- `api` - where the api files lives, documentation for the api
+
 ## Useful commands
 
 ````bash
