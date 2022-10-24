@@ -1,0 +1,24 @@
+mode: set
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:24.63,32.37 2 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:36.2,36.15 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:32.37,34.3 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:39.36,40.25 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:44.2,44.57 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:48.2,48.18 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:52.2,52.18 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:56.2,56.17 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:60.2,60.12 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:40.25,42.3 1 0
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:44.57,46.3 1 0
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:48.18,50.3 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:52.18,54.3 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/product.go:56.17,58.3 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/user.go:15.59,17.16 2 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/user.go:21.2,26.8 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/entity/user.go:17.16,19.3 1 0
+github.com/tupizz/go-foundation/41-api-project/internal/entity/user.go:29.55,32.2 2 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:12.33,14.2 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:16.48,18.2 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:20.64,23.16 3 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:26.2,26.18 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:23.16,25.3 1 0
