@@ -1,3 +1,7 @@
+## Useful resources
+
+- https://github.com/tupizz/golang-lab - A collection of Go guided by examples
+
 ## Project standards
 
 ### How to organize your project on folders
