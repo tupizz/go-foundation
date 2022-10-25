@@ -16,7 +16,7 @@ func TestCreateUser(t *testing.T) {
 
 	err = db.AutoMigrate(&entity.User{})
 	if err != nil {
-		return
+		t.Error(err)
 	}
 
 	user, _ := entity.NewUser("John Doe", "john.doe@email.com", "123456")
