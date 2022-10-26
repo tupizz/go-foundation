@@ -1,12 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/tupizz/go-foundation/41-api-project/configs"
-	"github.com/tupizz/go-foundation/41-api-project/internal/dto"
 	"github.com/tupizz/go-foundation/41-api-project/internal/entity"
 	"github.com/tupizz/go-foundation/41-api-project/internal/infra/database"
+	"github.com/tupizz/go-foundation/41-api-project/internal/infra/webserver/handlers"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"net/http"
@@ -21,48 +22,18 @@ func main() {
 	}
 	db.AutoMigrate(&entity.Product{}, &entity.Product{})
 
-	productHandler := NewProductHandler(database.NewProductRepository(db))
-	http.HandleFunc("/products", productHandler.CreateProduct)
+	// Http server
+	productHandler := handlers.NewProductHandler(database.NewProductRepository(db))
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+	r.Use(middleware.Heartbeat("/ping"))
+	r.Get("/products", productHandler.GetProducts)
+	r.Post("/products", productHandler.CreateProduct)
+	r.Get("/products/{id}", productHandler.GetProduct)
+	r.Put("/products/{id}", productHandler.UpdateProduct)
+	r.Delete("/products/{id}", productHandler.DeleteProduct)
 
 	fmt.Println("Server is running on port", cfg.WebServerPort)
-	http.ListenAndServe(fmt.Sprintf(":%s", cfg.WebServerPort), nil)
-}
-
-type ProductHandler struct {
-	Repository database.ProductDBInterface
-}
-
-func NewProductHandler(db database.ProductDBInterface) *ProductHandler {
-	return &ProductHandler{
-		Repository: db,
-	}
-}
-
-func (h *ProductHandler) CreateProduct(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-
-	var productDto dto.CreateProductDTO
-	err := json.NewDecoder(r.Body).Decode(&productDto)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(dto.ErrorMessage{Message: err.Error()})
-		return
-	}
-
-	p, err := entity.NewProduct(productDto.Name, productDto.Price)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(dto.ErrorMessage{Message: err.Error()})
-		return
-	}
-	err = h.Repository.Create(p)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(dto.ErrorMessage{Message: err.Error()})
-		return
-	}
-
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(p)
-	return
+	http.ListenAndServe(fmt.Sprintf(":%s", cfg.WebServerPort), r)
 }
