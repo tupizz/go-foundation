@@ -8,3 +8,14 @@ type CreateProductDTO struct {
 type ErrorMessage struct {
 	Message string `json:"message"`
 }
+
+type CreateUserInput struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type GetJwtDTO struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

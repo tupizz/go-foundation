@@ -32,8 +32,8 @@ github.com/tupizz/go-foundation/41-api-project/internal/infra/database/product_d
 github.com/tupizz/go-foundation/41-api-project/internal/infra/database/product_db.go:47.51,49.3 1 0
 github.com/tupizz/go-foundation/41-api-project/internal/infra/database/product_db.go:51.29,53.3 1 1
 github.com/tupizz/go-foundation/41-api-project/internal/infra/database/product_db.go:53.8,55.3 1 0
-github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:12.33,14.2 1 1
-github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:16.48,18.2 1 1
-github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:20.64,23.16 3 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:12.53,14.2 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:16.62,18.2 1 1
+github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:20.74,23.16 3 1
 github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:26.2,26.18 1 1
 github.com/tupizz/go-foundation/41-api-project/internal/infra/database/user_db.go:23.16,25.3 1 0

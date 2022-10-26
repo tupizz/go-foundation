@@ -20,8 +20,8 @@ func TestCreateUser(t *testing.T) {
 	}
 
 	user, _ := entity.NewUser("John Doe", "john.doe@email.com", "123456")
-	userDb := NewUser(db)
-	err = userDb.Create(user)
+	userDb := NewUserRepository(db)
+	err = userDb.CreateUser(user)
 	assert.Nil(t, err)
 
 	var userFound entity.User
@@ -45,8 +45,8 @@ func TestUser_FindByEmail(t *testing.T) {
 	}
 
 	user, _ := entity.NewUser("John Doe", "john.doe@email.com", "123456")
-	userDb := NewUser(db)
-	err = userDb.Create(user)
+	userDb := NewUserRepository(db)
+	err = userDb.CreateUser(user)
 	assert.Nil(t, err)
 
 	userFound, err := userDb.FindByEmail("john.doe@email.com")

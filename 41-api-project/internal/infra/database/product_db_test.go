@@ -75,7 +75,7 @@ func TestProductRepository_FindByID(t *testing.T) {
 
 	db.AutoMigrate(&entity.Product{})
 
-	// Create a product to be tested
+	// CreateUser a product to be tested
 	product, _ := entity.NewProduct("Playstation 5", 7640.0)
 	productRepository := NewProductRepository(db)
 	productRepository.Create(product)
@@ -98,7 +98,7 @@ func TestProductRepository_Delete(t *testing.T) {
 
 	db.AutoMigrate(&entity.Product{})
 
-	// Create a product to be tested
+	// CreateUser a product to be tested
 	product, _ := entity.NewProduct("Playstation 5", 7640.0)
 	productRepository := NewProductRepository(db)
 	productRepository.Create(product)
@@ -126,7 +126,7 @@ func TestProductRepository_Update(t *testing.T) {
 
 	db.AutoMigrate(&entity.Product{})
 
-	// Create a product to be tested
+	// CreateUser a product to be tested
 	product, _ := entity.NewProduct("Playstation 5", 7640.0)
 	productRepository := NewProductRepository(db)
 	productRepository.Create(product)
