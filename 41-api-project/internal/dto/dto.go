@@ -19,3 +19,7 @@ type GetJwtDTO struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+
+type GetJwtResponse struct {
+	AccessToken string `json:"access_token"`
+}

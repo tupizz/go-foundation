@@ -7,7 +7,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"github.com/tupizz/go-foundation/41-api-project/configs"
+	_ "github.com/tupizz/go-foundation/41-api-project/docs"
 	"github.com/tupizz/go-foundation/41-api-project/internal/dto"
 	"github.com/tupizz/go-foundation/41-api-project/internal/entity"
 	"github.com/tupizz/go-foundation/41-api-project/internal/infra/database"
@@ -19,6 +21,20 @@ import (
 	"time"
 )
 
+// @title API Project - Go Foundation - Tupizz
+// @description This is a sample server for a Go Foundation course.
+// @version 1.0.0
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Tadeu Tupinambá
+// @contact.url https://tadeutupinamba.com.br
+// @contact.email tadeu.tupiz@gmail.com
+
+// @host localhost:8000
+// @BasePath /
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	cfg := configs.LoadConfig(".")
 
@@ -59,6 +75,9 @@ func main() {
 		r.Post("/", userHandler.CreateUser)
 		r.Post("/login", userHandler.GetJwt)
 	})
+
+	// Swagger documentation
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	// Start server
 	fmt.Println("Server is running on port", cfg.WebServerPort)

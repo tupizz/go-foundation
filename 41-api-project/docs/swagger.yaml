@@ -1,0 +1,295 @@
+basePath: /
+definitions:
+  dto.CreateProductDTO:
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  dto.CreateUserInput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.ErrorMessage:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.GetJwtDTO:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.GetJwtResponse:
+    properties:
+      access_token:
+        type: string
+    type: object
+  entity.Product:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  entity.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: tadeu.tupiz@gmail.com
+    name: Tadeu Tupinambá
+    url: https://tadeutupinamba.com.br
+  description: This is a sample server for a Go Foundation course.
+  termsOfService: http://swagger.io/terms/
+  title: API Project - Go Foundation - Tupizz
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Get all products
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Product'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all products
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: Create a new product
+      parameters:
+      - description: Product to be created
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateProductDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/entity.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new product
+      tags:
+      - products
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product
+      parameters:
+      - description: Product ID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a product
+      tags:
+      - products
+    get:
+      consumes:
+      - application/json
+      description: Get a product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a product
+      tags:
+      - products
+    put:
+      consumes:
+      - application/json
+      description: Update a product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product to be updated
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a product
+      tags:
+      - products
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/entity.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      summary: Create user
+      tags:
+      - user
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Get JWT
+      parameters:
+      - description: login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.GetJwtDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.GetJwtResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.ErrorMessage'
+      summary: Get JWT
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
