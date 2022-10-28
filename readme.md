@@ -24,6 +24,7 @@ go mod init github.com/tupizz/curso-go ## inicia modulo
 go mod tidy ## instala dependencias e requirements, remove pacotes que não estamos utilizandos
 go mod tidy -e ## install all dependencies except those that are not used and found in the go.mod file
 go get golang.org/x/exp/constraints ## instala determinada biblioteca
+go run -race main.go # detect race conditions situations on your code while running
 
 # workspaces
 go mod edit -replace=github.com/tupizz/curso-go=../curso-go ## substitui o caminho do pacote
