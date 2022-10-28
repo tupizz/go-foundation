@@ -58,3 +58,6 @@ create table products (id varchar(255), name varchar(255), price decimal(10,2), 
 
 ### Templates
 https://pkg.go.dev/html/template
+
+## Concurrency and Parallelism
+![Go threads concurrency](./go-threads-concurrency.jpg)
