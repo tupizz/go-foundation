@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	cep := "15043-020"
+	cep := "15091-330"
 
 	apiCep := request.NewGetApiCep()
 	viaCep := request.NewGetViaCep()
