@@ -1,0 +1,23 @@
+mode: set
+54-challenge-multithreading/request/get_api_cep.go:24.32,26.2 1 1
+54-challenge-multithreading/request/get_api_cep.go:28.78,32.16 4 1
+54-challenge-multithreading/request/get_api_cep.go:36.2,41.16 5 1
+54-challenge-multithreading/request/get_api_cep.go:45.2,47.16 3 1
+54-challenge-multithreading/request/get_api_cep.go:51.2,69.21 4 1
+54-challenge-multithreading/request/get_api_cep.go:32.16,34.3 1 0
+54-challenge-multithreading/request/get_api_cep.go:41.16,43.3 1 0
+54-challenge-multithreading/request/get_api_cep.go:47.16,49.3 1 0
+54-challenge-multithreading/request/get_via_cep.go:26.32,28.2 1 1
+54-challenge-multithreading/request/get_via_cep.go:30.78,34.16 4 1
+54-challenge-multithreading/request/get_via_cep.go:38.2,43.16 5 1
+54-challenge-multithreading/request/get_via_cep.go:47.2,49.16 3 1
+54-challenge-multithreading/request/get_via_cep.go:53.2,71.21 4 1
+54-challenge-multithreading/request/get_via_cep.go:34.16,36.3 1 0
+54-challenge-multithreading/request/get_via_cep.go:43.16,45.3 1 0
+54-challenge-multithreading/request/get_via_cep.go:49.16,51.3 1 0
+54-challenge-multithreading/handler/handler.go:10.33,13.2 2 1
+54-challenge-multithreading/handler/handler.go:15.93,24.9 6 1
+54-challenge-multithreading/handler/handler.go:36.2,36.15 1 1
+54-challenge-multithreading/handler/handler.go:25.36,27.30 2 1
+54-challenge-multithreading/handler/handler.go:28.36,30.30 2 1
+54-challenge-multithreading/handler/handler.go:31.37,33.25 2 1

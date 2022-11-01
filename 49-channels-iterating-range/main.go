@@ -1,15 +1,23 @@
 package main
 
+import "fmt"
+
 // main thread (Thread 1)
 func main() {
-	forever := make(chan bool) // create channel, channel is empty
+	ch := make(chan int) // create channel, channel is empty
+	go publisher(ch)
+	reader(ch)
+}
 
-	go func() {
-		for i := 0; i < 10; i++ {
-			println(i)
-		}
-		forever <- true // send value to channel, channel is full
-	}()
+func reader(ch chan int) {
+	for x := range ch {
+		fmt.Printf("Received: %d\n", x)
+	}
+}
 
-	<-forever // receive value from channel, channel is empty again (DEADLOCK)
+func publisher(ch chan int) {
+	for i := 0; i < 10; i++ {
+		ch <- i
+	}
+	close(ch) // close channel
 }
